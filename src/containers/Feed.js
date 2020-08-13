@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Card from '../components/Card/Card';
+import React, { Component } from "react";
+import styled from "styled-components";
+import Card from "../components/Card/Card";
 
 const FeedWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const Alert = styled.div`
   text-align: center;
 `;
 
-const ROOT_API = 'https://api.stackexchange.com/2.2/';
+const ROOT_API = "https://api.stackexchange.com/2.2/";
 
 class Feed extends Component {
   constructor() {
@@ -21,14 +21,14 @@ class Feed extends Component {
     this.state = {
       data: [],
       loading: true,
-      error: '',
+      error: "",
     };
   }
 
   async componentDidMount() {
     try {
       const data = await fetch(
-        `${ROOT_API}questions?order=desc&sort=activity&tagged=reactjs&site=stackoverflow`,
+        `${ROOT_API}questions?order=desc&sort=activity&tagged=reactjs&site=stackoverflow`
       );
       const dataJSON = await data.json();
 
@@ -50,12 +50,12 @@ class Feed extends Component {
     const { data, loading, error } = this.state;
 
     if (loading || error) {
-      return <Alert>{loading ? 'Loading...' : error}</Alert>;
+      return <Alert>{loading ? "Loading..." : error}</Alert>;
     }
 
     return (
       <FeedWrapper>
-        {data.items.map(item => (
+        {data.items.map((item) => (
           <Card key={item.question_id} data={item} />
         ))}
       </FeedWrapper>
