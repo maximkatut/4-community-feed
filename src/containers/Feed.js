@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import queryString from "query-string";
+import Helmet from "react-helmet";
 
 import Card from "../components/Card/Card";
 
@@ -98,24 +99,31 @@ class Feed extends Component {
     }
 
     return (
-      <FeedWrapper>
-        {data.items.map((item) => (
-          <CardLink
-            to={`/questions/${item.question_id}`}
-            key={item.question_id}
-          >
-            <Card data={item} />
-          </CardLink>
-        ))}
-        <PaginationBar>
-          <PaginationLink to={`${match.url}?page=${page <= 1 ? 1 : page - 1}`}>
-            Previous
-          </PaginationLink>
-          <PaginationLink to={`${match.url}?page=${page + 1}`}>
-            Next
-          </PaginationLink>
-        </PaginationBar>
-      </FeedWrapper>
+      <>
+        <Helmet>
+          <title>Q&A Feed - Questions</title>
+        </Helmet>
+        <FeedWrapper>
+          {data.items.map((item) => (
+            <CardLink
+              to={`/questions/${item.question_id}`}
+              key={item.question_id}
+            >
+              <Card data={item} />
+            </CardLink>
+          ))}
+          <PaginationBar>
+            <PaginationLink
+              to={`${match.url}?page=${page <= 1 ? 1 : page - 1}`}
+            >
+              Previous
+            </PaginationLink>
+            <PaginationLink to={`${match.url}?page=${page + 1}`}>
+              Next
+            </PaginationLink>
+          </PaginationBar>
+        </FeedWrapper>
+      </>
     );
   }
 }
